@@ -1020,14 +1020,14 @@ configureufw(){
 ### OS Check ###
 
 oscheck(){
-    output "* Checking your OS.."
+    output "* Comprobando tu sistema operativo..."
     if  [ "$dist" =  "ubuntu" ] ||  [ "$dist" =  "debian" ]; then
-        output "* Your OS, $dist, is fully supported. Continuing.."
+        output "* su sistema operativo, $dist, es totalmente compatible. Continuo.."
         output ""
         options
     else
-        output "* Your OS, $dist, is not supported!"
-        output "* Exiting..."
+        output "* su sistema operativo, $dist, ¡no es apoyado!"
+        output "* Saliendo..."
         exit 1
     fi
 }
@@ -1095,11 +1095,11 @@ warning "Copyright 2022, Malthe K, <me@malthe.cc>"
 warning "Copyright 2023, Eymer A, <eymersamp16@gmail.com>"
 warning "https://github.com/guldkage/Pterodactyl-Installer"
 warning ""
-warning "This script is not responsible for any damages. The script has been tested several times without issues."
-warning "Support is not given."
-warning "This script will only work on a fresh installation. Proceed with caution if not having a fresh installation"
+warning "Este script no es responsable de ningún daño. El script ha sido probado varias veces sin problemas."
+warning "Support Discord:eymer#3936."
+warning "Este script solo funcionará en una instalación nueva. Proceda con precaución si no tiene una instalación nueva"
 warning ""
-warning "You are very welcome to report errors or bugs about this script. These can be reported on GitHub."
-warning "Thanks in advance!"
+warning "Le invitamos a informar errores o errores sobre este script. Estos se pueden informar en GitHub."
+warning "¡Gracias por adelantado!"
 warning ""
 oscheck
