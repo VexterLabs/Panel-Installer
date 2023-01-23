@@ -5,10 +5,11 @@
 #                                                                      #
 #            Pterodactyl Installer, Updater, Remover and More          #
 #            Copyright 2022, Malthe K, <me@malthe.cc>                  #
+#            Copyright 2023, Eymer A, <eymersamp16@gmail.com>          #        
 # https://github.com/guldkage/Pterodactyl-Installer/blob/main/LICENSE  #
 #                                                                      #
-#  This script is not associated with the official Pterodactyl Panel.  #
-#  You may not remove this line                                        #
+#  Este script no está asociado con el panel oficial de Pterodactyl.   #
+#  No puedes eliminar esta línea.                                      #
 #                                                                      #
 ########################################################################
 
@@ -288,7 +289,7 @@ start(){
     output ""
     output "* AGREEMENT *"
     output ""
-    output "The script will install Pterodactyl Panel, you will be asked for several things before installation."
+    output "El script instalará Pterodactyl Panel, se le pedirán varias cosas antes de la instalación."
     output "Do you agree to this?"
     output "(Y/N):"
     read -r AGREE
@@ -305,7 +306,7 @@ startwings(){
     output ""
     output "* AGREEMENT *"
     output ""
-    output "The script will install Pterodactyl Wings."
+    output "El script instalará Pterodactyl Wings."
     output "Do you want to continue?"
     output "(Y/N):"
     read -r AGREEWINGS
@@ -1035,19 +1036,19 @@ oscheck(){
 
 options(){
     output "Please select your installation option:"
-    warning "[1] Install Panel. | Installs latest version of Pterodactyl Panel"
-    warning "[2] Install Wings. | Installs latest version of Pterodactyl Wings."
-    warning "[3] Install PHPMyAdmin. | Installs PHPMyAdmin. (Installs using NGINX)"
+    warning "[1] Panel de instalación. | Instala la última versión de Pterodactyl Panel"
+    warning "[2] Instalar alas. | Instala la última versión de Pterodactyl Wings."
+    warning "[3] Instalar PHPMyAdmin. | Instala PHPMyAdmin. (Se instala usando NGINX)"
     warning ""
-    warning "[4] Update Panel. | Updates your Panel to the latest version. May remove addons and themes."
-    warning "[5] Update Wings. | Updates your Wings to the latest version."
+    warning "[4] Panel de actualización. | Actualiza tu Panel a la última versión. Puede eliminar complementos y temas."
+    warning "[5] Actualizar alas. | Actualiza tus Wings a la última versión."
     warning ""
-    warning "[6] Uninstall Wings. | Uninstalls your Wings. This will also remove all of your game servers."
-    warning "[7] Uninstall Panel. | Uninstalls your Panel. You will only be left with your database and web server."
+    warning "[6] Desinstalar Wings. | Desinstala tus Wings. Esto también eliminará todos sus servidores de juegos."
+    warning "[7] Panel de desinstalación. | Desinstala su Panel. Solo te quedará tu base de datos y tu servidor web."
     warning ""
-    warning "[8] Renew Certificates | Renews all Lets Encrypt certificates on this machine."
-    warning "[9] Configure Firewall | Configure UFW to your liking."
-    warning "[10] Switch Pterodactyl Domain | Changes your Pterodactyl Domain."
+    warning "[8] Renovar Certificados | Renueva todos los certificados de Lets Encrypt en esta máquina."
+    warning "[9] Configurar cortafuegos | Configura UFW a tu gusto."
+    warning "[10] Cambiar dominio de pterodáctilo | Cambia tu Dominio de Pterodáctilo."
     read -r option
     case $option in
         1 ) option=1
