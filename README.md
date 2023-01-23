@@ -23,8 +23,8 @@ Este script es uno de los únicos que tiene una función de cambio de dominios q
 - Panel de desinstalación
 - Desinstalar alas
 
-## Supported OS & Webserver
-Supported operating systems.
+## Sistema operativo y servidor web compatibles
+Sistemas operativos compatibles.
 
 | Sistema operativo| Versión               | Soportado                          |
 | ---------------- | ----------------------| ---------------------------------- |
