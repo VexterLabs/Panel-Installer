@@ -553,16 +553,16 @@ required(){
 
 begin(){
     output ""
-    output "* INSTALLATION * "
+    output "* INSTALACIÓN * "
     output ""
-    output "Let's begin the installation!"
-    output "Continuing in 3 seconds.."
+    output "¡Comencemos la instalación!"
+    output "Continuando en 3 segundos.."
     output 
     sleep 3s
     composer
 }
 
-### Pterodactyl Admin User ###
+### Usuario administrador de pterodáctilo ###
 
 password(){
     begin
@@ -571,8 +571,8 @@ password(){
 
 username(){
     output ""
-    output "Please enter username for Admin Account."
-    output "You will login with either username or your email."
+    output "Ingrese el nombre de usuario para la cuenta de administrador."
+    output "Iniciará sesión con su nombre de usuario o su correo electrónico."
     read -r USERNAME
     password
 }
@@ -580,19 +580,19 @@ username(){
 
 lastname(){
     output ""
-    output "Please enter last name for Admin Account."
+    output "Ingrese el apellido para la cuenta de administrador."
     read -r LASTNAME
     username
 }
 
 firstname(){
     output ""
-    output "* ACCOUNT CREATION * "
+    output "* CREACIÓN DE CUENTA * "
     output ""
-    output "In order to create an account on the Panel, we need some more information."
-    output "You do not need to type in real first and last name."
+    output "Para crear una cuenta en el Panel, necesitamos más información."
+    output "No necesita escribir el nombre y apellido reales."
     output ""
-    output "Please enter first name for Admin Account."
+    output "Ingrese el nombre de la cuenta de administrador."
     read -r FIRSTNAME
     lastname
 }
@@ -601,8 +601,8 @@ firstname(){
 
 continueanyway(){
     output ""
-    output "This error can sometimes be false positive."
-    output "Do you want to continue anyway?"
+    output "Este error a veces puede ser un falso positivo."
+    output "¿Quieres continuar de todos modos?"
     output "(Y/N):"
     read -r CONTINUE_ANYWAY
 
@@ -618,19 +618,19 @@ fqdn(){
     output ""
     output "* PANEL URL * "
     output ""
-    output "Enter your FQDN or IP for your Panel. You will access the Panel with this."
-    output "Make sure that your FQDN is pointed to your IP with an A record. If not the script will not be able to provide the webpage."
+    output "Ingrese su FQDN o IP para su Panel. Accederás al Panel con esto."
+    output "Asegúrese de que su FQDN apunte a su IP con un registro A. De lo contrario, el script no podrá proporcionar la página web."
     read -r FQDN
-    [ -z "$FQDN" ] && output "FQDN can't be empty."
+    [ -z "$FQDN" ] && output "FQDN no puede estar vacío."
     IP=$(dig +short myip.opendns.com @resolver2.opendns.com -4)
     DOMAIN=$(dig +short ${FQDN})
     if [ "${IP}" != "${DOMAIN}" ]; then
         output ""
-        output "Your FQDN does not resolve to the IP of current server."
-        output "Please point your servers IP to your FQDN."
+        output "Su FQDN no se resuelve en la IP del servidor actual."
+        output "Apunte la IP de su servidor a su FQDN."
         continueanyway
     else
-        output "Your FQDN is pointed correctly. Continuing."
+        output "Su FQDN está apuntado correctamente. Continuo."
         required
     fi
 }
@@ -641,9 +641,9 @@ ssl(){
     output ""
     output "* SSL * "
     output ""
-    output "Do you want to use SSL? It requires a domain."
-    output "SSL encrypts all data compared to HTTP which does not. SSL is always recommended."
-    output "If you do not have a domain and want to use an IP to access, please type N, as you can not have SSL on a IP this easy."
+    output "¿Quieres usar SSL? Requiere un dominio."
+    output "SSL cifra todos los datos en comparación con HTTP, que no lo hace. Siempre se recomienda SSL."
+    output "Si no tiene un dominio y desea usar una IP para acceder, escriba N, ya que no puede tener SSL en una IP tan fácil."
     output "(Y/N):"
     read -r SSL_CONFIRM
 
@@ -657,43 +657,43 @@ ssl(){
     fi
 }
 
-### SSL select yes ##
+### SSL seleccione sí ##
 
 emailsslyes(){
     output ""
-    output "* EMAIL *"
+    output "* CORREO *"
     output ""
-    warning "Read:"
-    output "The script now asks for your email. It will be shared with Lets Encrypt to complete the SSL. It will also be used to setup the Panel."
-    output "If you do not agree, stop the script."
+    warning "Leer:"
+    output "El script ahora le pide su correo electrónico. Se compartirá con Lets Encrypt para completar el SSL. También se utilizará para configurar el Panel."
+    output "Si no está de acuerdo, detenga el guión."
     warning ""
-    output "Please enter your email"
+    output "Por favor introduzca su correo electrónico"
     read -r EMAIL
     fqdn
 }
 
-### SSL select no ###
+### SSL seleccione no ###
 
 emailsslno(){
     output ""
-    output "* EMAIL *"
+    output "* CORREO *"
     output ""
-    warning "Read:"
-    output "The script now asks for your email. It will be used to setup the Panel."
-    output "If you do not agree, stop the script."
+    warning "Leer:"
+    output "El script ahora le pide su correo electrónico. Se utilizará para configurar el Panel."
+    output "Si no está de acuerdo, detenga el guión."
     warning ""
-    output "Please enter your email"
+    output "Por favor introduzca su correo electrónico"
     read -r EMAIL
     fqdn
 }
 
-### Webserver selection ###
+### Selección de servidor web ###
 
 web(){
     output ""
-    output "* WEBSERVER * "
+    output "* SERVIDOR WEB * "
     output ""
-    output "What webserver would you like to use?"
+    output "¿Qué servidor web le gustaría usar?"
     output "[1] NGINX"
     output ""
     read -r option
