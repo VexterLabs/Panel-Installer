@@ -1,62 +1,63 @@
 ![Logo Image](https://github.com/guldkage/Pterodactyl-Installer/blob/main/configs/installer.png?raw=true)
 
 
-# Pterodactyl Installer
+# Instalador de pterodáctilo
 
-With this script you can easily install, update or delete Pterodactyl Panel. Everything is gathered in one script.
-Use this script if you want to install, update or delete your services quickly. The things that are being done are already listed on [Pterodactyl](https://pterodactyl.io/), but this clearly makes it faster since it is automatic.
+Con este script puede instalar, actualizar o eliminar fácilmente Pterodactyl Panel. Todo está reunido en un guión.
+Utilice este script si desea instalar, actualizar o eliminar sus servicios rápidamente. Las cosas que se están haciendo ya están enumeradas en [Pterodactyl](https://pterodactyl.io/), pero esto claramente lo hace más rápido ya que es automático.
 
-Please note that this script is made to work on a fresh installation. There is a good chance that it will fail if it is not a fresh installation.
-The script must be run as root.
+Tenga en cuenta que este script está diseñado para funcionar en una instalación nueva. Existe una buena posibilidad de que falle si no es una instalación nueva.
+El script debe ejecutarse como root.
 
-If you find any errors, things you would like changed or queries for things in the future for this script, please write an "Issue".
-Read about [Pterodactyl](https://pterodactyl.io/) here. This script is not associated with the official Pterodactyl Project.
+Si encuentra algún error, cosas que le gustaría cambiar o consultas sobre cosas en el futuro para este script, escriba un "Problema".
+Lee sobre [Pterodactyl](https://pterodactyl.io/) aquí. Este script no está asociado con el Proyecto Pterodactyl oficial.
 
-## Features
-This script is one of the only ones that has a well-functioning Switch Domains feature.
+## Características
+Este script es uno de los únicos que tiene una función de cambio de dominios que funciona bien.
 
-- Install Panel
-- Install Wings
-- Install PHPMyAdmin
-- Switch Pterodactyl Domains
-- Update Wings
-- Uninstall Panel
-- Uninstall Wings
+- Panel de instalación
+- Instalar alas
+- Instalar PHPMyAdmin
+- Cambiar dominios de pterodáctilo
+- Actualizar alas
+- Panel de desinstalación
+- Desinstalar alas
 
 ## Supported OS & Webserver
 Supported operating systems.
 
-| Operating System | Version               | Supported                          |
+| Sistema operativo| Versión               | Soportado                          |
 | ---------------- | ----------------------| ---------------------------------- |
 | Ubuntu           | from 18.04 to 22.04   | :white_check_mark:                 |
 | Debian           | from 10 to 11         | :white_check_mark:                 |
 | CentOS           | no supported versions | :x:                                |
 | Rocky Linux      | no supported versions | :x:                                |
 
-| Webserver        | Supported           |
+| Servidor web     | Soportado           |
 | ---------------- | --------------------| 
 | NGINX            | :white_check_mark:  |
 | Apache           | :x:                 |
 | LiteSpeed        | :x:                 |
 | Caddy            | :x:                 |
 
-## Copyright
-Please do not say you created this script. You may create a fork for this Pterodactyl-Installer, but I would appreciate this github being linked to.
-Also, please not remove my copyright at the top of the Pterodactyl-Installer script.
+## derechos de autor
+Por favor, no digas que creaste este script. Puede crear una bifurcación para este Pterodactyl-Installer, pero agradecería que se vinculara este github.
+Además, no elimine mis derechos de autor en la parte superior del script Pterodactyl-Installer.
 
-## Support
-No support is offered for this script.
-The script has been tested many times without any bug fixes, however they can still occur.
-If you find errors, feel free to open an "Issue" on GitHub.
+## Apoyo
+No se ofrece soporte para este script.
+El script se probó muchas veces sin corregir errores, sin embargo, aún pueden ocurrir.
+Si encuentra errores, no dude en abrir un "Problema" en GitHub.
 
-# Run the script
-Debian based systems only.
+# Ejecutar el script
+Solo sistemas basados en Debian.
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/installer.sh)
+bash <(curl -s https://raw.githubusercontent.com/eymersamp16/Pterodactyl-Installer-Spanish/main/installer.sh)
 ```
 
 ### Raspbian
-Only for raspbian users. They might need a extra < in the beginning.
+Solo para usuarios de raspbian. Es posible que necesiten un < extra al principio.
 ```bash
-bash < <(curl -s https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/installer.sh)
+bash <(curl -s https://raw.githubusercontent.com/eymersamp16/Pterodactyl-Installer-Spanish/main/installer.sh)
 ```
+
