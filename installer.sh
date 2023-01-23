@@ -1092,6 +1092,7 @@ clear
 output ""
 warning "Pterodactyl Installer @ v2.0"
 warning "Copyright 2022, Malthe K, <me@malthe.cc>"
+warning "Copyright 2023, Eymer A, <eymersamp16@gmail.com>"
 warning "https://github.com/guldkage/Pterodactyl-Installer"
 warning ""
 warning "This script is not responsible for any damages. The script has been tested several times without issues."
