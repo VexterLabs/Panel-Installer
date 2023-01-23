@@ -1035,7 +1035,7 @@ oscheck(){
 ### Options ###
 
 options(){
-    output "Please select your installation option:"
+    output "Seleccione su opción de instalación:"
     warning "[1] Panel de instalación. | Instala la última versión de Pterodactyl Panel"
     warning "[2] Instalar alas. | Instala la última versión de Pterodactyl Wings."
     warning "[3] Instalar PHPMyAdmin. | Instala PHPMyAdmin. (Se instala usando NGINX)"
