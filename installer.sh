@@ -4,7 +4,8 @@
 ########################################################################
 #                                                                      #
 #            Instalador, actualizador, eliminador y más de Pterodactyl #
-#            Copyright 2023, Eymer A, <eymersamp16@gmail.com>          #        
+#            Copyright 2023, Eymer A, <eymersamp16@gmail.com>          #
+#            Copyright 2022, Malthe K, <me@malthe.cc>                  #        
 # https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/LICENSE  #
 #                                                                      #
 #  Este script no está asociado con el panel oficial de Pterodactyl.   #
@@ -1090,9 +1091,8 @@ options(){
 clear
 output ""
 warning "Instalador de pterodáctilo @ v2.0"
-warning "Copyright 2022, Malthe K, <me@malthe.cc>"
 warning "Copyright 2023, Eymer A, <eymersamp16@gmail.com>"
-warning "https://github.com/guldkage/Pterodactyl-Installer"
+warning "https://github.com/eymersamp16/Pterodactyl-Installer-Spanish"
 warning ""
 warning "Este script no es responsable de ningún daño. El script ha sido probado varias veces sin problemas."
 warning "Support Discord:eymer#3936."
