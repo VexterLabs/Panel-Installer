@@ -287,10 +287,10 @@ finish(){
 
 start(){
     output ""
-    output "* AGREEMENT *"
+    output "* CONVENIO *"
     output ""
     output "El script instalará Pterodactyl Panel, se le pedirán varias cosas antes de la instalación."
-    output "Do you agree to this?"
+    output "¿Estás de acuerdo con esto?"
     output "(Y/N):"
     read -r AGREE
 
@@ -304,10 +304,10 @@ start(){
 
 startwings(){
     output ""
-    output "* AGREEMENT *"
+    output "* CONVENIO *"
     output ""
     output "El script instalará Pterodactyl Wings."
-    output "Do you want to continue?"
+    output "¿Quieres continuar?"
     output "(Y/N):"
     read -r AGREEWINGS
 
@@ -321,7 +321,7 @@ wingsfqdn(){
     output ""
     output "* FQDN *"
     output ""
-    output "Would you like to install a SSL certificate for a FQDN?"
+    output "¿Le gustaría instalar un certificado SSL para un FQDN?"
     output "(Y/N):"
     read -r WINGSFQDN
 
@@ -337,11 +337,11 @@ wingsfqdn(){
 
 wingsemail(){
     output ""
-    output "* EMAIL *"
+    output "* CORREO *"
     output ""
-    warning "Read:"
-    output "To generate your new FQDN certificate for Wings, your email address must be shared with Let's Encrypt."
-    output "They will send you an email when your certificate is about to expire. A certificate lasts 90 days at a time and you can renew your certificates for free and easily, even with this script."
+    warning "Leer:"
+    output "Para generar su nuevo certificado FQDN para Wings, su dirección de correo electrónico debe compartirse con Let's Encrypt."
+    output "Le enviarán un correo electrónico cuando su certificado esté a punto de caducar. Un certificado dura 90 días a la vez y puede renovar sus certificados de forma gratuita y sencilla, incluso con este script."
     output ""
     output "Therefore, enter your email. If you do not feel like giving your email, then the script can not continue. Press CTRL + C to exit."
     read -r WINGSEMAIL
@@ -352,18 +352,18 @@ wingsfqdn-ask(){
     output ""
     output "* Wings FQDN * "
     output ""
-    output "Enter FQDN for Wings."
-    output "Make sure that your FQDN is pointed to your IP with an A record. If not the script will not be able to provide the service."
+    output "Ingrese FQDN para Wings."
+    output "Asegúrese de que su FQDN apunte a su IP con un registro A. De lo contrario, el script no podrá proporcionar el servicio."
     read -r FQDNwingsurl
     [ -z "$FQDNwingsurl" ] && output "FQDN can't be empty."
     IP=$(dig +short myip.opendns.com @resolver2.opendns.com -4)
     DOMAIN=$(dig +short ${FQDNwingsurl})
     if [ "${IP}" != "${DOMAIN}" ]; then
         output ""
-        output "Your FQDN does not resolve to the IP of current server."
-        output "Please point your servers IP to your FQDN."
+        output "Su FQDN no se resuelve en la IP del servidor actual."
+        output "Apunte la IP de su servidor a su FQDN."
         output ""
-        output "This error can be false positive. The script is continuing in 10 seconds.."
+        output "Este error puede ser falso positivo. El guión continúa en 10 segundos.."
         sleep 10s
         apt install certbot
         systemctl stop nginx
@@ -371,7 +371,7 @@ wingsfqdn-ask(){
         systemctl start nginx
         wingsinstall
     else
-        output "Your FQDN is pointed correctly. Continuing."
+        output "Su FQDN está apuntado correctamente. Continuo."
         apt install certbot
         systemctl stop nginx
         certbot certonly --standalone -d $FQDNwingsurl --staple-ocsp --no-eff-email -m $WINGSEMAIL --agree-tos
@@ -381,24 +381,24 @@ wingsfqdn-ask(){
 }
 
 wingsinstall(){
-    output "Installing..."
+    output "Instalando..."
     if  [ "$dist" =  "ubuntu" ] || [ "$dist" =  "debian" ]; then
         curl -sSL https://get.docker.com/ | CHANNEL=stable bash
         systemctl enable --now docker
 
-        mkdir -p /etc/pterodactyl || exit || output "An error occurred. Could not create directory." || exit
+        mkdir -p /etc/pterodactyl || exit || output "Ocurrió un error. No se pudo crear el directorio." || exit
         apt-get -y install curl tar unzip
         curl -L -o /usr/local/bin/wings "https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_$([[ "$(uname -m)" == "x86_64" ]] && echo "amd64" || echo "arm64")"
         curl -o /etc/systemd/system/wings.service https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/configs/wings.service
         chmod u+x /usr/local/bin/wings
         clear
         output ""
-        output "* WINGS SUCCESSFULLY INSTALLED *"
+        output "* ALAS INSTALADAS CON ÉXITO *"
         output ""
-        output "Thank you for using the script. Remember to give it a star."
-        output "All you need is to set up Wings."
-        output "To do this, create the node on your Panel, then press under Configuration,"
-        output "press Generate Token, paste it on your server and then type systemctl enable wings --now"
+        output "Gracias por usar el script. Recuerda darle una estrella."
+        output "Todo lo que necesitas es configurar Wings."
+        output "Para hacer esto, cree el nodo en su Panel, luego presione en Configuración,"
+        output "presione Generar token, péguelo en su servidor y luego escriba systemctl enable wings --now"
         output ""
     fi
 }
