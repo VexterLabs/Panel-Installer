@@ -1,4 +1,4 @@
-![Logo Image](https://github.com/guldkage/Pterodactyl-Installer/blob/main/configs/installer.png?raw=true)
+![Logo Image](file:///C:/Users/Public/Pictures/Sample%20Pictures/banner_logo.webp)
 
 
 # Instalador de pterodáctilo
