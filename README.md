@@ -1,4 +1,4 @@
-![Logo Image](file:///C:/Users/Public/Pictures/Sample%20Pictures/banner_logo.webp)
+![Logo Image](https://raw.githubusercontent.com/eymersamp16/Pterodactyl-Installer-Spanish/main/configs/installer.png)
 
 
 # Instalador de pterodáctilo
