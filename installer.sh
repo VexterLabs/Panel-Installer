@@ -3,10 +3,9 @@
 
 ########################################################################
 #                                                                      #
-#            Pterodactyl Installer, Updater, Remover and More          #
-#            Copyright 2022, Malthe K, <me@malthe.cc>                  #
+#            Instalador, actualizador, eliminador y más de Pterodactyl #
 #            Copyright 2023, Eymer A, <eymersamp16@gmail.com>          #        
-# https://github.com/guldkage/Pterodactyl-Installer/blob/main/LICENSE  #
+# https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/LICENSE  #
 #                                                                      #
 #  Este script no está asociado con el panel oficial de Pterodactyl.   #
 #  No puedes eliminar esta línea.                                      #
@@ -44,7 +43,7 @@ dist="$(. /etc/os-release && echo "$ID")"
 WINGSFQDN=""
 WINGSEMAIL=""
 
-### OUTPUTS ###
+### SALIDAS ###
 
 output(){
     echo -e '\e[36m'"$1"'\e[0m';
@@ -52,7 +51,7 @@ output(){
 
 function trap_ctrlc ()
 {
-    output "Bye!"
+    output "Chao!"
     exit 2
 }
 trap "trap_ctrlc" 2
@@ -61,14 +60,14 @@ warning(){
     echo -e '\e[31m'"$1"'\e[0m';
 }
 
-### CHECKS ###
+### CHEQUES ###
 
 if [[ $EUID -ne 0 ]]; then
     output ""
     output "* ERROR *"
     output ""
-    output "* Sorry, but you need to be root to run this script."
-    output "* Most of the time this can be done by typing sudo su in your terminal"
+    output "* Lo sentimos, pero debe ser root para ejecutar este script."
+    output "* La mayoría de las veces esto se puede hacer escribiendo sudo su en su terminal"
     exit 1
 fi
 
@@ -76,24 +75,24 @@ if ! [ -x "$(command -v curl)" ]; then
     output ""
     output "* ERROR *"
     output ""
-    output "cURL is required to run this script."
-    output "To proceed, please install cURL on your machine."
+    output "Se requiere cURL para ejecutar este script."
+    output "Para continuar, instale cURL en su máquina."
     output ""
-    output "Debian based systems: apt install curl"
-    output "CentOS: yum install curl"
+    output "Sistemas basados en Debian: apt install curl"
+    output "CentOS: yum instalar curl"
     exit 1
 fi
 
-### PHPMyAdmin Install Complete ###
+### Instalación completa de PHPMyAdmin ###
 
 phpmyadminweb(){
     if  [ "$SSLSTATUSPHPMYADMIN" =  "true" ]; then
         rm -rf /etc/nginx/sites-enabled/default
         curl -o /etc/nginx/sites-enabled/phpmyadmin.conf https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/configs/phpmyadmin-ssl.conf
         sed -i -e "s@<domain>@${FQDNPHPMYADMIN}@g" /etc/nginx/sites-enabled/phpmyadmin.conf
-        systemctl stop nginx || exit || output "An error occurred. NGINX is not installed." || exit
-        certbot certonly --standalone -d $FQDNPHPMYADMIN --staple-ocsp --no-eff-email -m $PHPMYADMINEMAIL --agree-tos || exit || output "An error occurred. Certbot not installed." || exit
-        systemctl start nginx || exit || output "An error occurred. NGINX is not installed." || exit
+        systemctl stop nginx || exit || output "Ocurrió un error. NGINX no está instalado." || exit
+        certbot certonly --standalone -d $FQDNPHPMYADMIN --staple-ocsp --no-eff-email -m $PHPMYADMINEMAIL --agree-tos || exit || output "Ocurrió un error. Certbot no instalado." || exit
+        systemctl start nginx || exit || output "Ocurrió un error. NGINX no está instalado." || exit
 
         apt install mariadb-server
         PHPMYADMIN_USER=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1`
@@ -101,20 +100,20 @@ phpmyadminweb(){
 
         clear
         output ""
-        output "* PHPMYADMIN SUCCESSFULLY INSTALLED *"
+        output "* PHPMYADMIN INSTALADO CON ÉXITO *"
         output ""
-        output "Thank you for using the script. Remember to give it a star."
+        output "Gracias por usar el script. Recuerda darle una estrella."
         output "URL: https://$FQDNPHPMYADMIN"
         output ""
-        output "Details for admin account:"
-        output "Username: admin"
-        output "Password: $PHPMYADMIN_USER"
+        output "Detalles de la cuenta de administrador:"
+        output "Nombre de usuario: admin"
+        output "Contraseña: $PHPMYADMIN_USER"
         fi
     if  [ "$SSLSTATUSPHPMYADMIN" =  "false" ]; then
-        rm -rf /etc/nginx/sites-enabled/default || exit || output "An error occurred. NGINX is not installed." || exit
-        curl -o /etc/nginx/sites-enabled/phpmyadmin.conf https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/configs/phpmyadmin.conf || exit || output "An error occurred. cURL is not installed." || exit
-        sed -i -e "s@<domain>@${FQDNPHPMYADMIN}@g" /etc/nginx/sites-enabled/phpmyadmin.conf || exit || output "An error occurred. NGINX is not installed." || exit
-        systemctl restart nginx || exit || output "An error occurred. NGINX is not installed." || exit
+        rm -rf /etc/nginx/sites-enabled/default || exit || output "Ocurrió un error. NGINX no está instalado." || exit
+        curl -o /etc/nginx/sites-enabled/phpmyadmin.conf https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/configs/phpmyadmin.conf || exit || output "Ocurrió un error. cURL no está instalado." || exit
+        sed -i -e "s@<domain>@${FQDNPHPMYADMIN}@g" /etc/nginx/sites-enabled/phpmyadmin.conf || exit || output "Ocurrió un error. NGINX no está instalado." || exit
+        systemctl restart nginx || exit || output "Ocurrió un error. NGINX no está instalado." || exit
 
         apt install mariadb-server
         PHPMYADMIN_USER=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1`
@@ -122,27 +121,27 @@ phpmyadminweb(){
 
         clear
         output ""
-        output "* PHPMYADMIN SUCCESSFULLY INSTALLED *"
+        output "* PHPMYADMIN INSTALADO CON ÉXITO *"
         output ""
-        output "Thank you for using the script. Remember to give it a star."
+        output "Gracias por usar el script. Recuerda darle una estrella."
         output "URL: http://$FQDNPHPMYADMIN"
         output ""
-        output "Details for admin account:"
-        output "Username: admin"
-        output "Password: $PHPMYADMIN_USER"
+        output "Detalles de la cuenta de administrador:"
+        output "Nombre de usuario: admin"
+        output "Contraseña: $PHPMYADMIN_USER"
         fi
 }
 
-### PHPMyAdmin Install ###
+### Instalación de PHPMyAdmin ###
 
 phpmyadmininstall(){
     output ""
-    output "Starting the installation of PHPMyAdmin"
-    output "While the script is doing its work, please do not abort the installation. This can lead to issues on your machine."
-    output "Instead, let the script install PHPMyAdmin. Then uninstall it after if you have changed your mind."
+    output "Comenzando la instalación de PHPMyAdmin"
+    output "Mientras el script está haciendo su trabajo, no cancele la instalación. Esto puede conducir a problemas en su máquina."
+    output "En su lugar, deje que el script instale PHPMyAdmin. Luego desinstálelo después si ha cambiado de opinión."
     sleep 1s
     if  [ "$dist" =  "ubuntu" ] || [ "$dist" =  "debian" ]; then
-        mkdir /var/www/phpmyadmin && cd /var/www/phpmyadmin || exit || output "An error occurred. Could not create directory." || exit
+        mkdir /var/www/phpmyadmin && cd /var/www/phpmyadmin || exit || output "Ocurrió un error. No se pudo crear el directorio." || exit
         apt install nginx -y
         apt install certbot -y
         LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
@@ -162,7 +161,7 @@ phpmyadmininstall(){
 
 continueanywayphpmyadmin(){
     output ""
-    output "Do you want to continue anyway?"
+    output "¿Quieres continuar de todos modos?"
     output "(Y/N):"
     read -r CONTINUE_ANYWAY_PHPMYADMIN
 
@@ -176,34 +175,34 @@ continueanywayphpmyadmin(){
 
 fqdnphpmyadmin(){
     output ""
-    output "* PHPMYADMIN URL * "
+    output "* URL PHPMYADMIN * "
     output ""
-    output "Enter your FQDN or IP"
-    output "Make sure that your FQDN is pointed to your IP with an A record. If not the script will not be able to provide the webpage."
+    output "Ingrese su FQDN o IP"
+    output "Asegúrese de que su FQDN apunte a su IP con un registro A. De lo contrario, el script no podrá proporcionar la página web."
     read -r FQDNPHPMYADMIN
-    [ -z "$FQDNPHPMYADMIN" ] && output "FQDN can't be empty."
+    [ -z "$FQDNPHPMYADMIN" ] && output "FQDN no puede estar vacío."
     IP=$(dig +short myip.opendns.com @resolver2.opendns.com -4)
     DOMAIN=$(dig +short ${FQDNPHPMYADMIN})
     if [ "${IP}" != "${DOMAIN}" ]; then
         output ""
-        output "Your FQDN does not resolve to the IP of current server."
-        output "Please point your servers IP to your FQDN."
+        output "Su FQDN no se resuelve en la IP del servidor actual."
+        output "Apunte la IP de su servidor a su FQDN."
         continueanywayphpmyadmin
     else
-        output "Your FQDN is pointed correctly. Continuing."
+        output "Su FQDN está apuntado correctamente. Continuo."
         phpmyadmininstall
     fi
 }
 
 phpmyadminemailsslyes(){
     output ""
-    output "* EMAIL *"
+    output "* CORREO *"
     output ""
-    warning "Read:"
-    output "The script now asks for your email. It will be shared with Lets Encrypt to complete the SSL."
-    output "If you do not agree, stop the script."
+    warning "Leer:"
+    output "El script ahora le pide su correo electrónico. Se compartirá con Lets Encrypt para completar el SSL."
+    output "Si no está de acuerdo, detenga el guión."
     warning ""
-    output "Please enter your email"
+    output "Por favor introduzca su correo electrónico"
     read -r PHPMYADMINEMAIL
     fqdnphpmyadmin
 }
@@ -212,7 +211,7 @@ phpmyadminssl(){
     output ""
     output "* SSL * "
     output ""
-    output "Do you want to use SSL for PHPMyAdmin? This requires a domain."
+    output "¿Quieres usar SSL para PHPMyAdmin? Esto requiere un dominio."
     output "(Y/N):"
     read -r SSL_CONFIRM_PHPMYADMIN
 
@@ -229,10 +228,10 @@ phpmyadminssl(){
 
 startphpmyadmin(){
     output ""
-    output "* AGREEMENT *"
+    output "* CONVENIO *"
     output ""
-    output "The script will install PHPMYAdmin with the webserver NGINX."
-    output "Do you want to continue?"
+    output "El script instalará PHPMYAdmin con el servidor web NGINX."
+    output "¿Quieres continuar?"
     output "(Y/N):"
     read -r AGREEPHPMYADMIN
 
@@ -241,48 +240,48 @@ startphpmyadmin(){
     fi
 }
 
-### Finish Panel Installation ###
+### Terminar la instalación del panel ###
 
 finish(){
     clear
     warning ""
-    warning "* PANEL SUCCESSFULLY INSTALLED *"
+    warning "* PANEL INSTALADO CON ÉXITO *"
     warning ""
-    warning "Thank you for using the script. Remember to give it a star."
-    warning "The script has ended."
-    warning "https://$FQDN or http://$FQDN to go to your Panel."
+    warning "Gracias por usar el script. Recuerda darle una estrella."
+    warning "El guión ha terminado."
+    warning "https://$FQDN o http://$FQDN para ir a su Panel."
     warning ""
-    warning "I hope you enjoy your new panel!"
-    warning "Your login information for your new Panel:"
+    warning "¡Espero que disfrutes de tu nuevo panel!"
+    warning "Su información de inicio de sesión para su nuevo Panel:"
     warning ""
-    warning "Email: $EMAIL"
-    warning "Username: $USERNAME"
-    warning "First Name: $FIRSTNAME"
-    warning "Last Name: $LASTNAME"
-    warning "Password: $USERPASSWORD"
+    warning "Correo electrónico: $EMAIL"
+    warning "Nombre de usuario: $USERNAME"
+    warning "Primer nombre: $FIRSTNAME"
+    warning "Apellido: $LASTNAME"
+    warning "Contraseña: $USERPASSWORD"
     warning ""
-    warning "You do not need to copy the password under here."
-    warning "This password can also be seen in /var/www/pterodactyl/.env"
-    warning "You will not use this password in your daily use,"
-    warning "this script already configured it for you."
+    warning "No es necesario que copie la contraseña aquí."
+    warning "Esta contraseña también se puede ver en /var/www/pterodactyl/.env"
+    warning "No utilizará esta contraseña en su uso diario,"
+    warning "este script ya lo configuró para usted."
     warning ""
-    warning "Database password: $DBPASSWORD"
+    warning "Contraseña de la base de datos: $DBPASSWORD"
     warning ""
-    warning "Database Host for Nodes. If a server on your panel needs a database,"
-    warning "it can be easily created through a database host"
+    warning "Host de base de datos para nodos. Si un servidor en su panel necesita una base de datos,"
+    warning "se puede crear fácilmente a través de un host de base de datos"
     warning ""
     warning "Host: 127.0.0.1"
     warning "User: pterodactyluser"
     warning "Password: $DBPASSWORDHOST"
     warning ""
-    warning "If you want to create databases on your Panel,"
-    warning "you will need to insert this information into"
-    warning "Your Admin Panel then Databases -> Create new"
+    warning "Si desea crear bases de datos en su Panel,"
+    warning "tendrá que insertar esta información en"
+    warning "Su panel de administración luego bases de datos -> Crear nuevo"
     warning ""
-    warning "Firewall:"
-    warning "The Panel may not load if port 80 and 433 is not open."
-    warning "Please check your firewall or rerun this script"
-    warning "and select Firewall Configuration."
+    warning "cortafuegos:"
+    warning "Es posible que el Panel no se cargue si los puertos 80 y 433 no están abiertos."
+    warning "Verifique su firewall o vuelva a ejecutar este script"
+    warning "y seleccione Configuración de cortafuegos."
 }
 
 start(){
@@ -300,7 +299,7 @@ start(){
     fi
 }
 
-### WINGS ###
+### ALAS ###
 
 startwings(){
     output ""
@@ -343,19 +342,19 @@ wingsemail(){
     output "Para generar su nuevo certificado FQDN para Wings, su dirección de correo electrónico debe compartirse con Let's Encrypt."
     output "Le enviarán un correo electrónico cuando su certificado esté a punto de caducar. Un certificado dura 90 días a la vez y puede renovar sus certificados de forma gratuita y sencilla, incluso con este script."
     output ""
-    output "Therefore, enter your email. If you do not feel like giving your email, then the script can not continue. Press CTRL + C to exit."
+    output "Por lo tanto, ingrese su correo electrónico. Si no tiene ganas de dar su correo electrónico, entonces el script no puede continuar. Presione CTRL + C para salir."
     read -r WINGSEMAIL
     wingsfqdn-ask
 }
 
 wingsfqdn-ask(){
     output ""
-    output "* Wings FQDN * "
+    output "* Alas FQDN * "
     output ""
     output "Ingrese FQDN para Wings."
     output "Asegúrese de que su FQDN apunte a su IP con un registro A. De lo contrario, el script no podrá proporcionar el servicio."
     read -r FQDNwingsurl
-    [ -z "$FQDNwingsurl" ] && output "FQDN can't be empty."
+    [ -z "$FQDNwingsurl" ] && output "FQDN no puede estar vacío."
     IP=$(dig +short myip.opendns.com @resolver2.opendns.com -4)
     DOMAIN=$(dig +short ${FQDNwingsurl})
     if [ "${IP}" != "${DOMAIN}" ]; then
@@ -403,7 +402,7 @@ wingsinstall(){
     fi
 }
 
-### Webserver ###
+### Servidor web ###
 
 webserver(){
     if  [ "$SSLSTATUS" =  "true" ]; then
@@ -428,10 +427,10 @@ webserver(){
         fi
 }
 
-### Permissions ###
+### permisos ###
 
 extra(){
-    output "Changing permissions..."
+    output "Cambio de permisos..."
     if  [ "$dist" =  "ubuntu" ] || [ "$dist" =  "debian" ]; then
         chown -R www-data:www-data /var/www/pterodactyl/*
         curl -o /etc/systemd/system/pteroq.service https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/configs/pteroq.service
@@ -449,10 +448,10 @@ extra(){
     fi
 }
 
-### Confiration of the Panel ###
+### Confirmación del Panel ###
 
 configuration(){
-    output "Setting up the Panel... Can be a long process."
+    output "Configurar el Panel... Puede ser un proceso largo."
     sleep 1s
     [ "$SSLSTATUS" == true ] && appurl="https://$FQDN"
     [ "$SSLSTATUS" == false ] && appurl="http://$FQDN"
@@ -463,7 +462,7 @@ configuration(){
     mysql -u root -e "CREATE USER 'pterodactyl'@'127.0.0.1' IDENTIFIED BY '$DBPASSWORD';" && mysql -u root -e "CREATE DATABASE panel;" &&mysql -u root -e "GRANT ALL PRIVILEGES ON panel.* TO 'pterodactyl'@'127.0.0.1' WITH GRANT OPTION;" && mysql -u root -e "FLUSH PRIVILEGES;"
     php artisan p:environment:setup --author="$EMAIL" --url="$appurl" --timezone="America/New_York" --cache="redis" --session="redis" --queue="redis" --redis-host="localhost" --redis-pass="null" --redis-port="6379" --settings-ui=true
     php artisan p:environment:database --host="127.0.0.1" --port="3306" --database="panel" --username="pterodactyl" --password="$DBPASSWORD"
-    output "Migrating database.. this may take some time."
+    output "Migrando base de datos.. Esto puede tomar algo de tiempo."
     php artisan migrate --seed --force
     php artisan p:user:make --email="$EMAIL" --username="$USERNAME" --name-first="$FIRSTNAME" --name-last="$LASTNAME" --password="$USERPASSWORD" --admin=1
     extra
@@ -471,9 +470,9 @@ configuration(){
 
 composer(){
     output ""
-    output "* INSTALLATION * "
+    output "* INSTALACIÓN * "
     output ""
-    output "Installing Composer.. This is used to operate the Panel."
+    output "Instalando Composer.. Esto se usa para operar el Panel."
     if  [ "$dist" =  "ubuntu" ] || [ "$dist" =  "debian" ]; then
         curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
         files
@@ -482,10 +481,10 @@ composer(){
     fi
 }
 
-### Downloading files for Pterodactyl ###
+### Descargando archivos para Pterodactyl ###
 
 files(){
-    output "Downloading required files for Pterodactyl.."
+    output "Descargando los archivos necesarios para Pterodactyl.."
     sleep 1s
     mkdir /var/www/pterodactyl
     cd /var/www/pterodactyl
@@ -498,25 +497,25 @@ files(){
     configuration
 }
 
-### haven't changed yet ###
+### no he cambiado todavía ###
 
 database(){
     firstname
 }
 
-### Installing required Packages for Pterodactyl ###
+### Instalación de paquetes necesarios para Pterodactyl ###
 
 required(){
     output ""
-    output "* INSTALLATION * "
+    output "* INSTALACIÓN * "
     output ""
-    output "Installing packages..."
-    output "This may take a while."
+    output "Instalando paquetes..."
+    output "Esto puede tardar un rato."
     output ""
     if  [ "$dist" =  "ubuntu" ]; then
         apt-get update
         apt -y install software-properties-common curl apt-transport-https ca-certificates gnupg
-        output "Installing dependencies"
+        output "Instalación de dependencias"
         sleep 1s
         LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
         curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor --batch --yes -o /usr/share/keyrings/redis-archive-keyring.gpg
@@ -526,14 +525,14 @@ required(){
         apt update
         apt-add-repository universe
         apt install certbot python3-certbot-nginx -y
-        output "Installing PHP, MariaDB and NGINX"
+        output "Instalación de PHP, MariaDB y NGINX"
         sleep 1s
         apt -y install php8.1 php8.1-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip} mariadb-server nginx tar unzip git redis-server
         database
     elif  [ "$dist" =  "debian" ]; then
         apt-get update
         apt -y install software-properties-common curl ca-certificates gnupg2 sudo lsb-release
-        output "Installing dependencies"
+        output "Instalación de dependencias"
         sleep 1s
         echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/sury-php.list
         curl -fsSL  https://packages.sury.org/php/apt.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/sury-keyring.gpg
@@ -543,7 +542,7 @@ required(){
         
         apt-add-repository universe
         apt install certbot python3-certbot-nginx -y
-        output "Installing PHP, MariaDB and NGINX"
+        output "Instalación de PHP, MariaDB y NGINX"
         sleep 1s
         curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bas
         apt install -y php8.1 php8.1-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip} mariadb-server nginx tar unzip git redis-server
@@ -699,65 +698,65 @@ web(){
     read -r option
     case $option in
         1 ) option=1
-            output "Selected: NGINX"
+            output "Seleccionado: NGINX"
             ssl
             ;;
         * ) output ""
-            warning "Script will exit. Unexpected output."
+            warning "El script saldrá. Salida inesperada."
             sleep 1s
             options
     esac
 }
 
-### Update Panel ###
+### Panel de actualización ###
 
 updatepanel(){
     output ""
-    output "* UPDATE PANEL *"
+    output "* PANEL DE ACTUALIZACIÓN *"
     output ""
-    output "Please use the official Docs instead"
+    output "Utilice los Documentos oficiales en su lugar"
 }
 
 confirmupdatepanel(){
-    cd /var/www/pterodactyl || exit || output "Pterodactyl Directory (/var/www/pterodactyl) does not exist." || exit
-    php artisan down || exit || output "WARNING! The script ran into an error and stopped the script for security. The script is not responsible for any damage." || exit
-    curl -L https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz | tar -xzv || exit || output "WARNING! The script ran into an error and stopped the script for security. The script is not responsible for any damage." || exit
-    chmod -R 755 storage/* bootstrap/cache || exit || output "WARNING! The script ran into an error and stopped the script for security. The script is not responsible for any damage." || exit
-    composer install --no-dev --optimize-autoloader -n || exit || output "WARNING! The script ran into an error and stopped the script for security. The script is not responsible for any damage." || exit
-    php artisan view:clear || exit || output "WARNING! The script ran into an error and stopped the script for security. The script is not responsible for any damage." || exit
-    php artisan config:clear || exit || output "WARNING! The script ran into an error and stopped the script for security. The script is not responsible for any damage." || exit
-    php artisan migrate --force || exit || output "WARNING! The script ran into an error and stopped the script for security. The script is not responsible for any damage." || exit
-    chown -R www-data:www-data /var/www/pterodactyl/* || exit || output "WARNING! The script ran into an error and stopped the script for security. The script is not responsible for any damage." || exit
-    php artisan queue:restart || exit || output "WARNING! The script ran into an error and stopped the script for security. The script is not responsible for any damage." || exit
-    php artisan up || exit || output "WARNING! The script ran into an error and stopped the script for security. The script is not responsible for any damage." || exit
+    cd /var/www/pterodactyl || exit || output "Directorio de pterodáctilos (/var/www/pterodactyl) no existe." || exit
+    php artisan down || exit || output "ADVERTENCIA! El script se encontró con un error y lo detuvo por seguridad. El guión no se hace responsable de ningún daño." || exit
+    curl -L https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz | tar -xzv || exit || output "¡ADVERTENCIA! El script se encontró con un error y lo detuvo por seguridad. El guión no se hace responsable de ningún daño." || exit
+    chmod -R 755 storage/* bootstrap/cache || exit || output "¡ADVERTENCIA! El script se encontró con un error y lo detuvo por seguridad. El guión no se hace responsable de ningún daño." || exit
+    composer install --no-dev --optimize-autoloader -n || exit || output "¡ADVERTENCIA! El script se encontró con un error y lo detuvo por seguridad. El guión no se hace responsable de ningún daño." || exit
+    php artisan view:clear || exit || output "¡ADVERTENCIA! El script se encontró con un error y lo detuvo por seguridad. El guión no se hace responsable de ningún daño." || exit
+    php artisan config:clear || exit || output "¡ADVERTENCIA! El script se encontró con un error y lo detuvo por seguridad. El guión no se hace responsable de ningún daño." || exit
+    php artisan migrate --force || exit || output "¡ADVERTENCIA! El script se encontró con un error y lo detuvo por seguridad. El guión no se hace responsable de ningún daño." || exit
+    chown -R www-data:www-data /var/www/pterodactyl/* || exit || output "¡ADVERTENCIA! El script se encontró con un error y lo detuvo por seguridad. El guión no se hace responsable de ningún daño." || exit
+    php artisan queue:restart || exit || output "¡ADVERTENCIA! El script se encontró con un error y lo detuvo por seguridad. El guión no se hace responsable de ningún daño." || exit
+    php artisan up || exit || output "¡ADVERTENCIA! El script se encontró con un error y lo detuvo por seguridad. El guión no se hace responsable de ningún daño." || exit
     output ""
-    output "* SUCCESSFULLY UPDATED *"
+    output "* ACTUALIZADO EXITOSAMENTE *"
     output ""
-    output "Pterodactyl Panel has successfully updated."
+    output "El panel de pterodáctilo se ha actualizado correctamente."
 }
 
-### Update Wings ###
+### Actualizar alas ###
 
 updatewings(){
     if ! [ -x "$(command -v wings)" ]; then
-        echo "Wings is required to update both."
+        echo "Se requiere Wings para actualizar ambos."
     fi
     curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_amd64
     chmod u+x /usr/local/bin/wings
     systemctl restart wings
     output ""
-    output "* SUCCESSFULLY UPDATED *"
+    output "* ACTUALIZADO EXITOSAMENTE *"
     output ""
-    output "Wings has successfully updated."
+    output "Wings se ha actualizado con éxito."
 }
 
-### Update Pterodactyl and Wings ###
+### Actualizar Pterodáctilo y Alas ###
 
 updateboth(){
     if ! [ -x "$(command -v wings)" ]; then
-        echo "Wings is required to update both."
+        echo "Se requiere Wings para actualizar ambos."
     fi
-    cd /var/www/pterodactyl || exit || warning "Pterodactyl Directory (/var/www/pterodactyl) does not exist!"
+    cd /var/www/pterodactyl || exit || advertencia "Directorio de pterodáctilos (/var/www/pterodactyl) ¡no existe!"
     php artisan down
     curl -L https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz | tar -xzv
     chmod -R 755 storage/* bootstrap/cache
@@ -773,40 +772,40 @@ updateboth(){
     chmod u+x /usr/local/bin/wings
     systemctl restart wings
     output ""
-    output "* SUCCESSFULLY UPDATED *"
+    output "* ACTUALIZADO EXITOSAMENTE *"
     output ""
-    output "Pterodactyl Panel and Wings has successfully updated."
+    output "Pterodactyl Panel and Wings se ha actualizado con éxito."
 }
 
-### Uninstall Panel ###
+### Panel de desinstalación ###
 
 uninstallpanel(){
     output ""
-    output "Do you really want to delete Pterodactyl Panel? All files & configurations will be deleted. You CANNOT get your files back."
+    output "¿Realmente desea eliminar Pterodactyl Panel? Se eliminarán todos los archivos y configuraciones. NO PUEDE recuperar sus archivos."
     output "(Y/N):"
     read -r UNINSTALLPANEL
 
     if [[ "$UNINSTALLPANEL" =~ [Yy] ]]; then
-        sudo rm -rf /var/www/pterodactyl || exit || warning "Panel is not installed!" # Removes panel files
+        sudo rm -rf /var/www/pterodactyl || exit || advertencia "¡El panel no está instalado!" # Removes panel files
         sudo rm /etc/systemd/system/pteroq.service # Removes pteroq service worker
         sudo unlink /etc/nginx/sites-enabled/pterodactyl.conf # Removes nginx config (if using nginx)
         sudo unlink /etc/apache2/sites-enabled/pterodactyl.conf # Removes Apache config (if using apache)
         sudo rm -rf /var/www/pterodactyl # Removing panel files
         systemctl restart nginx && systemctl restart apache2
         output ""
-        output "* PANEL SUCCESSFULLY UNINSTALLED *"
+        output "* PANEL DESINSTALADO CON ÉXITO *"
         output ""
-        output "Your panel has been removed. You are now left with your database and web server."
-        output "If you want to delete your database, simply go into MySQL and type DROP DATABASE (database name);"
-        output "Pterodactyl Panel has successfully been removed."
+        output "Su panel ha sido eliminado. Ahora le quedan su base de datos y su servidor web."
+        output "Si desea eliminar su base de datos, simplemente ingrese a MySQL y escriba DROP DATABASE (nombre de la base de datos);"
+        output "El panel de pterodáctilo se ha eliminado correctamente."
     fi
 }
 
-### Uninstall Wings ###
+### Desinstalar alas ###
 
 uninstallwings(){
     output ""
-    output "Do you really want to delete Pterodactyl Wings? All game servers & configurations will be deleted. You CANNOT get your files back."
+    output "¿De verdad quieres eliminar Pterodactyl Wings? Se eliminarán todos los servidores y configuraciones del juego. NO PUEDE recuperar sus archivos."
     output "(Y/N):"
     read -r UNINSTALLWINGS
 
@@ -814,25 +813,25 @@ uninstallwings(){
         {
         sudo systemctl stop wings # Stops wings
         sudo rm -rf /var/lib/pterodactyl # Removes game servers and backup files
-        sudo rm -rf /etc/pterodactyl  || exit || warning "Pterodactyl Wings not installed!"
-        sudo rm /usr/local/bin/wings || exit || warning "Wings is not installed!" # Removes wings
+        sudo rm -rf /etc/pterodactyl  || exit || advertencia "¡Alas de pterodáctilo no instaladas!"
+        sudo rm /usr/local/bin/wings || exit || advertencia "¡Las alas no están instaladas!" # Removes wings
         sudo rm /etc/systemd/system/wings.service # Removes wings service file
         } &> /dev/null
         output ""
-        output "* WINGS SUCCESSFULLY UNINSTALLED *"
+        output "* ALAS DESINSTALADAS CON ÉXITO *"
         output ""
-        output "Wings has been removed."
+        output "Se han eliminado las alas."
         output ""
     fi
 }
 
-### Firewall ###
+### cortafuegos ###
 
 http(){
     output ""
-    output "* FIREWALL CONFIGURATION * "
+    output "* CONFIGURACIÓN DEL CORTAFUEGOS * "
     output ""
-    output "HTTP & HTTPS firewall rule has been applied."
+    output "Se ha aplicado la regla de firewall HTTP y HTTPS."
     if  [ "$dist" =  "ubuntu" ] ||  [ "$dist" =  "debian" ]; then
         apt install ufw -Y
         ufw allow 80
@@ -842,9 +841,9 @@ http(){
 
 pterodactylports(){
     output ""
-    output "* FIREWALL CONFIGURATION * "
+    output "* CONFIGURACIÓN DEL CORTAFUEGOS * "
     output ""
-    output "All Pterodactyl Ports firewall rule has been applied."
+    output "Se ha aplicado la regla de firewall de todos los puertos de pterodáctilo."
     if  [ "$dist" =  "ubuntu" ] ||  [ "$dist" =  "debian" ]; then
         apt install ufw -y
         ufw allow 80
@@ -856,9 +855,9 @@ pterodactylports(){
 
 mainmysql(){
     output ""
-    output "* FIREWALL CONFIGURATION * "
+    output "* CONFIGURACIÓN DEL CORTAFUEGOS * "
     output ""
-    output "MySQL firewall rule has been applied."
+    output "Se ha aplicado la regla de firewall de MySQL."
     if  [ "$dist" =  "ubuntu" ] ||  [ "$dist" =  "debian" ]; then
         apt install ufw -y
         ufw alllow 3306
@@ -867,9 +866,9 @@ mainmysql(){
 
 allfirewall(){
     output ""
-    output "* FIREWALL CONFIGURATION * "
+    output "* CONFIGURACIÓN DEL CORTAFUEGOS * "
     output ""
-    output "All of them firewall rule has been applied."
+    output "A todos se les ha aplicado la regla de firewall."
     if  [ "$dist" =  "ubuntu" ] ||  [ "$dist" =  "debian" ]; then
         apt install ufw -y
         ufw allow 80
@@ -880,65 +879,65 @@ allfirewall(){
     fi
 }
 
-### Switch Domains ###
+### Cambiar dominios ###
 
 switch(){
     if  [ "$SSLSWITCH" =  "true" ]; then
         output ""
-        output "* SWITCH DOMAINS * "
+        output "* CAMBIAR DOMINIOS * "
         output ""
-        output "The script is now changing your Pterodactyl Domain. This may take a couple seconds for the SSL part, as SSL certificates are being generated."
+        output "El script ahora está cambiando su Dominio de Pterodactyl. Esto puede demorar un par de segundos para la parte de SSL, ya que se están generando los certificados SSL."
         rm /etc/nginx/sites-enabled/pterodactyl.conf
-        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/configs/pterodactyl-nginx-ssl.conf || exit || warning "Pterodactyl Panel not installed!"
+        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/configs/pterodactyl-nginx-ssl.conf || exit || advertencia "¡El panel de pterodáctilo no está instalado!"
         sed -i -e "s@<domain>@${DOMAINSWITCH}@g" /etc/nginx/sites-enabled/pterodactyl.conf
         systemctl stop nginx
-        certbot certonly --standalone -d $DOMAINSWITCH --staple-ocsp --no-eff-email -m $EMAILSWITCHDOMAINS --agree-tos || exit || warning "Errors accured."
+        certbot certonly --standalone -d $DOMAINSWITCH --staple-ocsp --no-eff-email -m $EMAILSWITCHDOMAINS --agree-tos || exit || advertencia "Ocurrieron errores."
         systemctl start nginx
         output ""
         output ""
-        output "* SWITCH DOMAINS * "
+        output "* CAMBIAR DOMINIOS * "
         output ""
-        output "Your domain has been switched to $DOMAINSWITCH"
-        output "This script does not update your APP URL, you can"
-        output "update it in /var/www/pterodactyl/.env"
+        output "Su dominio ha sido cambiado a $DOMAINSWITCH"
+        output "Este script no actualiza la URL de su aplicación, puede"
+        output "actualizarlo en /var/www/pterodactyl/.env"
         output ""
-        output "If using Cloudflare certifiates for your Panel, please read this:"
-        output "The script uses Lets Encrypt to complete the change of your domain,"
-        output "if you normally use Cloudflare Certificates,"
-        output "you can change it manually in its config which is in the same place as before."
+        output "Si usa certificados de Cloudflare para su panel, lea esto:"
+        output "El script usa Lets Encrypt para completar el cambio de su dominio,"
+        output "si normalmente usa certificados de Cloudflare,"
+        output "puede cambiarlo manualmente en su configuración, que se encuentra en el mismo lugar que antes."
         output ""
         fi
     if  [ "$SSLSWITCH" =  "false" ]; then
         output ""
-        output "* SWITCH DOMAINS * "
+        output "* CAMBIAR DOMINIOS * "
         output ""
-        output "Switching your domain.. This wont take long!"
-        rm /etc/nginx/sites-enabled/pterodactyl.conf || exit || output "An error occurred. Could not delete file." || exit
-        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/configs/pterodactyl-nginx.conf || exit || warning "Pterodactyl Panel not installed!"
+        output "Cambiando su dominio.. ¡Esto no tomará mucho tiempo!"
+        rm /etc/nginx/sites-enabled/pterodactyl.conf || exit || output "Ocurrió un error. No se pudo eliminar el archivo." || exit
+        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/configs/pterodactyl-nginx.conf || exit || advertencia "¡El panel de pterodáctilo no está instalado!"
         sed -i -e "s@<domain>@${DOMAINSWITCH}@g" /etc/nginx/sites-enabled/pterodactyl.conf
         systemctl restart nginx
         output ""
         output ""
-        output "* SWITCH DOMAINS * "
+        output "* CAMBIAR DOMINIOS * "
         output ""
-        output "Your domain has been switched to $DOMAINSWITCH"
-        output "This script does not update your APP URL, you can"
-        output "update it in /var/www/pterodactyl/.env"
+        output "Su dominio ha sido cambiado a $DOMAINSWITCH"
+        output "Este script no actualiza la URL de su aplicación, puede"
+        output "actualizarlo en /var/www/pterodactyl/.env"
         fi
 }
 
 switchemail(){
     output ""
-    output "* EMAIL *"
+    output "* CORREO *"
     output ""
-    warning "Read:"
-    output "To install your new domain certificate to your Panel, your email address must be shared with Let's Encrypt."
-    output "They will send you an email when your certificate is about to expire. A certificate lasts 90 days at a time and you can renew your certificates for free and easily, even with this script."
+    warning "Leer:"
+    output "Para instalar su nuevo certificado de dominio en su Panel, su dirección de correo electrónico debe compartirse con Let's Encrypt."
+    output "Le enviarán un correo electrónico cuando su certificado esté a punto de caducar. Un certificado dura 90 días a la vez y puede renovar sus certificados de forma gratuita y sencilla, incluso con este script."
     output ""
-    output "When you created your certificate for your panel before, they also asked you for your email address. It's the exact same thing here, with your new domain."
-    output "Therefore, enter your email. If you do not feel like giving your email, then the script can not continue. Press CTRL + C to exit."
+    output "Cuando creó su certificado para su panel anteriormente, también le pidieron su dirección de correo electrónico. Es exactamente lo mismo aquí, con su nuevo dominio."
+    output "Por lo tanto, ingrese su correo electrónico. Si no tiene ganas de dar su correo electrónico, entonces el script no puede continuar. Presione CTRL + C para salir."
     output ""
-    warning "Please enter your email"
+    warning "Por favor introduzca su correo electrónico"
 
     read -r EMAILSWITCHDOMAINS
     switch
@@ -946,11 +945,11 @@ switchemail(){
 
 switchssl(){
     output ""
-    output "* SWITCH DOMAINS * "
+    output "* CAMBIAR DOMINIOS * "
     output ""
-    output "Select the one that describes your panel:"
-    warning "[1] I have a Panel with SSL"
-    warning "[2] I do not have a Panel with SSL"
+    output "Seleccione el que describe su panel:"
+    warning "[1] Tengo un Panel con SSL"
+    warning "[2] No tengo un Panel con SSL"
     read -r option
     case $option in
         1 ) option=1
@@ -962,42 +961,42 @@ switchssl(){
             switch
             ;;
         * ) output ""
-            output "Please enter a valid option."
+            output "Por favor ingrese una opción válida."
     esac
 }
 
 switchdomains(){
     output ""
-    output "* SWITCH DOMAINS * "
+    output "* CAMBIAR DOMINIOS * "
     output ""
-    output "Please enter the domain (panel.mydomain.ltd) you want to switch to."
+    output "Ingrese el dominio (panel.mydomain.ltd) al que desea cambiar."
     read -r DOMAINSWITCH
     switchssl
 }
 
-### Renews certificates ###
+### Renueva certificados ###
 
 rewnewcertificates(){
     {
     sudo certbot renew
     } &> /dev/null
     output ""
-    output "* RENEW CERTIFICATES * "
+    output "* RENOVAR CERTIFICADOS * "
     output ""
-    output "All Let's Encrypt certificates that were ready to be renewed have been renewed."
+    output "Todos los certificados de Let's Encrypt que estaban listos para ser renovados han sido renovados."
 }
 
-### Firewall options ###
+### Opciones de cortafuegos ###
 
 configureufw(){
     output ""
-    output "* FIREWALL CONFIGURATION * "
+    output "* CONFIGURACIÓN DEL CORTAFUEGOS * "
     output ""
-    output "Available firewall configurations:"
-    warning "[1] HTTP & HTTPS"
-    warning "[2] All Pterodactyl Ports"
+    output "Configuraciones de cortafuegos disponibles:"
+    warning "[1] HTTP y HTTPS"
+    warning "[2] Todos los puertos de pterodáctilo"
     warning "[3] MySQL"
-    warning "[4] All of them"
+    warning "[4] Todos ellos"
     read -r ufw
     case $ufw in
         1 ) ufw=1
@@ -1013,11 +1012,11 @@ configureufw(){
             allfirewall
             ;;
         * ) output ""
-            output "Please enter a valid option."
+            output "Por favor ingrese una opción válida."
     esac
 }
 
-### OS Check ###
+### Comprobación del sistema operativo ###
 
 oscheck(){
     output "* Comprobando tu sistema operativo..."
@@ -1032,7 +1031,7 @@ oscheck(){
     fi
 }
 
-### Options ###
+### Opciones ###
 
 options(){
     output "Seleccione su opción de instalación:"
@@ -1082,15 +1081,15 @@ options(){
             switchdomains
             ;;
         * ) output ""
-            output "Please enter a valid option from 1-10"
+            output "Ingrese una opción válida del 1 al 10"
     esac
 }
 
-### Start ###
+### Comienzo ###
 
 clear
 output ""
-warning "Pterodactyl Installer @ v2.0"
+warning "Instalador de pterodáctilo @ v2.0"
 warning "Copyright 2022, Malthe K, <me@malthe.cc>"
 warning "Copyright 2023, Eymer A, <eymersamp16@gmail.com>"
 warning "https://github.com/guldkage/Pterodactyl-Installer"
