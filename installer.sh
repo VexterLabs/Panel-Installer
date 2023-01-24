@@ -89,7 +89,7 @@ fi
 phpmyadminweb(){
     if  [ "$SSLSTATUSPHPMYADMIN" =  "true" ]; then
         rm -rf /etc/nginx/sites-enabled/default
-        curl -o /etc/nginx/sites-enabled/phpmyadmin.conf https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/configs/phpmyadmin-ssl.conf
+        curl -o /etc/nginx/sites-enabled/phpmyadmin.conf https://raw.githubusercontent.com/VexterLabs/Panel-Installer/main/configs/phpmyadmin-ssl.conf
         sed -i -e "s@<domain>@${FQDNPHPMYADMIN}@g" /etc/nginx/sites-enabled/phpmyadmin.conf
         systemctl stop nginx || exit || output "Ocurrió un error. NGINX no está instalado." || exit
         certbot certonly --standalone -d $FQDNPHPMYADMIN --staple-ocsp --no-eff-email -m $PHPMYADMINEMAIL --agree-tos || exit || output "Ocurrió un error. Certbot no instalado." || exit
@@ -112,7 +112,7 @@ phpmyadminweb(){
         fi
     if  [ "$SSLSTATUSPHPMYADMIN" =  "false" ]; then
         rm -rf /etc/nginx/sites-enabled/default || exit || output "Ocurrió un error. NGINX no está instalado." || exit
-        curl -o /etc/nginx/sites-enabled/phpmyadmin.conf https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/configs/phpmyadmin.conf || exit || output "Ocurrió un error. cURL no está instalado." || exit
+        curl -o /etc/nginx/sites-enabled/phpmyadmin.conf https://raw.githubusercontent.com/VexterLabs/Panel-Installer/main/configs/phpmyadmin.conf || exit || output "Ocurrió un error. cURL no está instalado." || exit
         sed -i -e "s@<domain>@${FQDNPHPMYADMIN}@g" /etc/nginx/sites-enabled/phpmyadmin.conf || exit || output "Ocurrió un error. NGINX no está instalado." || exit
         systemctl restart nginx || exit || output "Ocurrió un error. NGINX no está instalado." || exit
 
@@ -389,7 +389,7 @@ wingsinstall(){
         mkdir -p /etc/pterodactyl || exit || output "Ocurrió un error. No se pudo crear el directorio." || exit
         apt-get -y install curl tar unzip
         curl -L -o /usr/local/bin/wings "https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_$([[ "$(uname -m)" == "x86_64" ]] && echo "amd64" || echo "arm64")"
-        curl -o /etc/systemd/system/wings.service https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/configs/wings.service
+        curl -o /etc/systemd/system/wings.service https://raw.githubusercontent.com/VexterLabs/Panel-Installer/main/configs/wings.service
         chmod u+x /usr/local/bin/wings
         clear
         output ""
@@ -410,7 +410,7 @@ webserver(){
         command 1> /dev/null
         rm -rf /etc/nginx/sites-enabled/default
         output "Configuring webserver..."
-        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/configs/pterodactyl-nginx-ssl.conf
+        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://raw.githubusercontent.com/VexterLabs/Panel-Installer/main/configs/pterodactyl-nginx-ssl.conf
         sed -i -e "s@<domain>@${FQDN}@g" /etc/nginx/sites-enabled/pterodactyl.conf
         systemctl stop nginx
         certbot certonly --standalone -d $FQDN --staple-ocsp --no-eff-email -m $EMAIL --agree-tos
@@ -421,7 +421,7 @@ webserver(){
         command 1> /dev/null
         rm -rf /etc/nginx/sites-enabled/default
         output "Configuring webserver..."
-        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/configs/pterodactyl-nginx.conf
+        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://raw.githubusercontent.com/VexterLabs/Panel-Installer/main/configs/pterodactyl-nginx.conf
         sed -i -e "s@<domain>@${FQDN}@g" /etc/nginx/sites-enabled/pterodactyl.conf
         systemctl restart nginx
         finish
@@ -434,14 +434,14 @@ extra(){
     output "Cambio de permisos..."
     if  [ "$dist" =  "ubuntu" ] || [ "$dist" =  "debian" ]; then
         chown -R www-data:www-data /var/www/pterodactyl/*
-        curl -o /etc/systemd/system/pteroq.service https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/configs/pteroq.service
+        curl -o /etc/systemd/system/pteroq.service https://raw.githubusercontent.com/VexterLabs/Panel-Installer/main/configs/pteroq.service
         (crontab -l ; echo "* * * * * php /var/www/pterodactyl/artisan schedule:run >> /dev/null 2>&1")| crontab -
         sudo systemctl enable --now redis-server
         sudo systemctl enable --now pteroq.service
         webserver
     elif  [ "$dist" =  "fedora" ] ||  [ "$dist" =  "centos" ] || [ "$dist" =  "rhel" ] || [ "$dist" =  "rocky" ] || [ "$dist" = "almalinux" ]; then
         chown -R nginx:nginx /var/www/pterodactyl/*
-        curl -o /etc/systemd/system/pteroq.service https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/configs/pteroq-centos.service
+        curl -o /etc/systemd/system/pteroq.service https://raw.githubusercontent.com/VexterLabs/Panel-Installer/main/configs/pteroq-centos.service
         (crontab -l ; echo "* * * * * php /var/www/pterodactyl/artisan schedule:run >> /dev/null 2>&1")| crontab -
         sudo systemctl enable --now redis-server
         sudo systemctl enable --now pteroq.service
@@ -889,7 +889,7 @@ switch(){
         output ""
         output "El script ahora está cambiando su Dominio de Pterodactyl. Esto puede demorar un par de segundos para la parte de SSL, ya que se están generando los certificados SSL."
         rm /etc/nginx/sites-enabled/pterodactyl.conf
-        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/configs/pterodactyl-nginx-ssl.conf || exit || advertencia "¡El panel de pterodáctilo no está instalado!"
+        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://raw.githubusercontent.com/VexterLabs/Panel-Installer/main/configs/pterodactyl-nginx-ssl.conf || exit || advertencia "¡El panel de pterodáctilo no está instalado!"
         sed -i -e "s@<domain>@${DOMAINSWITCH}@g" /etc/nginx/sites-enabled/pterodactyl.conf
         systemctl stop nginx
         certbot certonly --standalone -d $DOMAINSWITCH --staple-ocsp --no-eff-email -m $EMAILSWITCHDOMAINS --agree-tos || exit || advertencia "Ocurrieron errores."
@@ -914,7 +914,7 @@ switch(){
         output ""
         output "Cambiando su dominio.. ¡Esto no tomará mucho tiempo!"
         rm /etc/nginx/sites-enabled/pterodactyl.conf || exit || output "Ocurrió un error. No se pudo eliminar el archivo." || exit
-        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/configs/pterodactyl-nginx.conf || exit || advertencia "¡El panel de pterodáctilo no está instalado!"
+        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://raw.githubusercontent.com/VexterLabs/Panel-Installer/main/configs/pterodactyl-nginx.conf || exit || advertencia "¡El panel de pterodáctilo no está instalado!"
         sed -i -e "s@<domain>@${DOMAINSWITCH}@g" /etc/nginx/sites-enabled/pterodactyl.conf
         systemctl restart nginx
         output ""
