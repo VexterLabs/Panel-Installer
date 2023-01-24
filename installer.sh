@@ -889,7 +889,7 @@ switch(){
         output ""
         output "El script ahora está cambiando su Dominio de Pterodactyl. Esto puede demorar un par de segundos para la parte de SSL, ya que se están generando los certificados SSL."
         rm /etc/nginx/sites-enabled/pterodactyl.conf
-        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/configs/pterodactyl-nginx-ssl.conf || exit || advertencia "¡El panel de pterodáctilo no está instalado!"
+        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/configs/pterodactyl-nginx-ssl.conf || exit || advertencia "¡El panel de pterodáctilo no está instalado!"
         sed -i -e "s@<domain>@${DOMAINSWITCH}@g" /etc/nginx/sites-enabled/pterodactyl.conf
         systemctl stop nginx
         certbot certonly --standalone -d $DOMAINSWITCH --staple-ocsp --no-eff-email -m $EMAILSWITCHDOMAINS --agree-tos || exit || advertencia "Ocurrieron errores."
@@ -914,7 +914,7 @@ switch(){
         output ""
         output "Cambiando su dominio.. ¡Esto no tomará mucho tiempo!"
         rm /etc/nginx/sites-enabled/pterodactyl.conf || exit || output "Ocurrió un error. No se pudo eliminar el archivo." || exit
-        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/configs/pterodactyl-nginx.conf || exit || advertencia "¡El panel de pterodáctilo no está instalado!"
+        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/configs/pterodactyl-nginx.conf || exit || advertencia "¡El panel de pterodáctilo no está instalado!"
         sed -i -e "s@<domain>@${DOMAINSWITCH}@g" /etc/nginx/sites-enabled/pterodactyl.conf
         systemctl restart nginx
         output ""
