@@ -389,7 +389,7 @@ wingsinstall(){
         mkdir -p /etc/pterodactyl || exit || output "Ocurrió un error. No se pudo crear el directorio." || exit
         apt-get -y install curl tar unzip
         curl -L -o /usr/local/bin/wings "https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_$([[ "$(uname -m)" == "x86_64" ]] && echo "amd64" || echo "arm64")"
-        curl -o /etc/systemd/system/wings.service https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/configs/wings.service
+        curl -o /etc/systemd/system/wings.service https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/configs/wings.service
         chmod u+x /usr/local/bin/wings
         clear
         output ""
@@ -410,7 +410,7 @@ webserver(){
         command 1> /dev/null
         rm -rf /etc/nginx/sites-enabled/default
         output "Configuring webserver..."
-        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/configs/pterodactyl-nginx-ssl.conf
+        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/configs/pterodactyl-nginx-ssl.conf
         sed -i -e "s@<domain>@${FQDN}@g" /etc/nginx/sites-enabled/pterodactyl.conf
         systemctl stop nginx
         certbot certonly --standalone -d $FQDN --staple-ocsp --no-eff-email -m $EMAIL --agree-tos
@@ -421,7 +421,7 @@ webserver(){
         command 1> /dev/null
         rm -rf /etc/nginx/sites-enabled/default
         output "Configuring webserver..."
-        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/configs/pterodactyl-nginx.conf
+        curl -o /etc/nginx/sites-enabled/pterodactyl.conf https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/configs/pterodactyl-nginx.conf
         sed -i -e "s@<domain>@${FQDN}@g" /etc/nginx/sites-enabled/pterodactyl.conf
         systemctl restart nginx
         finish
@@ -434,14 +434,14 @@ extra(){
     output "Cambio de permisos..."
     if  [ "$dist" =  "ubuntu" ] || [ "$dist" =  "debian" ]; then
         chown -R www-data:www-data /var/www/pterodactyl/*
-        curl -o /etc/systemd/system/pteroq.service https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/configs/pteroq.service
+        curl -o /etc/systemd/system/pteroq.service https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/configs/pteroq.service
         (crontab -l ; echo "* * * * * php /var/www/pterodactyl/artisan schedule:run >> /dev/null 2>&1")| crontab -
         sudo systemctl enable --now redis-server
         sudo systemctl enable --now pteroq.service
         webserver
     elif  [ "$dist" =  "fedora" ] ||  [ "$dist" =  "centos" ] || [ "$dist" =  "rhel" ] || [ "$dist" =  "rocky" ] || [ "$dist" = "almalinux" ]; then
         chown -R nginx:nginx /var/www/pterodactyl/*
-        curl -o /etc/systemd/system/pteroq.service https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/configs/pteroq-centos.service
+        curl -o /etc/systemd/system/pteroq.service https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/configs/pteroq-centos.service
         (crontab -l ; echo "* * * * * php /var/www/pterodactyl/artisan schedule:run >> /dev/null 2>&1")| crontab -
         sudo systemctl enable --now redis-server
         sudo systemctl enable --now pteroq.service
