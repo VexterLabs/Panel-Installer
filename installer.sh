@@ -89,7 +89,7 @@ fi
 phpmyadminweb(){
     if  [ "$SSLSTATUSPHPMYADMIN" =  "true" ]; then
         rm -rf /etc/nginx/sites-enabled/default
-        curl -o /etc/nginx/sites-enabled/phpmyadmin.conf https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/configs/phpmyadmin-ssl.conf
+        curl -o /etc/nginx/sites-enabled/phpmyadmin.conf https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/configs/phpmyadmin-ssl.conf
         sed -i -e "s@<domain>@${FQDNPHPMYADMIN}@g" /etc/nginx/sites-enabled/phpmyadmin.conf
         systemctl stop nginx || exit || output "Ocurrió un error. NGINX no está instalado." || exit
         certbot certonly --standalone -d $FQDNPHPMYADMIN --staple-ocsp --no-eff-email -m $PHPMYADMINEMAIL --agree-tos || exit || output "Ocurrió un error. Certbot no instalado." || exit
@@ -112,7 +112,7 @@ phpmyadminweb(){
         fi
     if  [ "$SSLSTATUSPHPMYADMIN" =  "false" ]; then
         rm -rf /etc/nginx/sites-enabled/default || exit || output "Ocurrió un error. NGINX no está instalado." || exit
-        curl -o /etc/nginx/sites-enabled/phpmyadmin.conf https://raw.githubusercontent.com/guldkage/Pterodactyl-Installer/main/configs/phpmyadmin.conf || exit || output "Ocurrió un error. cURL no está instalado." || exit
+        curl -o /etc/nginx/sites-enabled/phpmyadmin.conf https://github.com/eymersamp16/Pterodactyl-Installer-Spanish/blob/main/configs/phpmyadmin.conf || exit || output "Ocurrió un error. cURL no está instalado." || exit
         sed -i -e "s@<domain>@${FQDNPHPMYADMIN}@g" /etc/nginx/sites-enabled/phpmyadmin.conf || exit || output "Ocurrió un error. NGINX no está instalado." || exit
         systemctl restart nginx || exit || output "Ocurrió un error. NGINX no está instalado." || exit
 
